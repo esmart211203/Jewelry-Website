@@ -1,0 +1,2 @@
+pandas>=0.16
+sqlalchemy>=0.9.9

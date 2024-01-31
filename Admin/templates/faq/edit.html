@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block page-title %}Update FAQ{% endblock page-title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Question:</label>
+      <input type="text" class="form-control" id="title" name="question" value="{{faq.question}}" required>
+    </div>
+    <div class="form-group">
+        <label for="title">Answer:</label>
+        <input type="text" class="form-control" id="title" name="answer" value="{{faq.answer}}" required>
+    </div>
+    <div class="form-group">
+        <label for="price">Order number:</label>
+        <input type="number" class="form-control" id="ordernumber" name="ordernumber" step="1" value="{{faq.ordernumber}}" required>
+    </div>
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" required>
+          <option  {% if faq.status == 'True' %}selected{% endif %} value="True">True</option>
+          <option  {% if faq.status == 'False' %}selected{% endif %} value="False">False</option>
+        </select>
+      </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'homebase.html' %}
+{% block title %} User Comments {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Trang chủ</a></li>
+                <li class="active">Bình Luận của bạn</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /BREADCRUMB -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-2">
+                    {% include "user_panel.html" %}
+                </div>
+                <div class="col-md-10">
+                    <div class="section-title">
+                        <h4 class="title">Danh sách bình luận</h4>
+                    </div>
+                    <table class="shopping-cart-table table">
+                        <tr>
+                            <th class="text-left">Sản Phẩm </th>
+                            <th class="text-left">Sao </th>
+                            <th class="text-left">Vấn đề </th>
+                            <th class="text-left">Bình luận </th>
+                            <th class="text-left">Tình trạng </th>
+                            <th class="text-left">Ngày gửi </th>
+                            <th class="text-left">Chi tiết </th>
+                        </tr>
+                        {% for rs in comments %}
+                            <tr>
+                                <td class="text-left">
+                                    <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+                                        <strong> {{ rs.product.title}}</strong>
+                                    </a>
+                                </td>
+                                <td class="text-left">{{ rs.rate}} </td>
+                                <td class="text-left">{{ rs.subject}} </td>
+                                <td class="text-left">{{ rs.comment}} </td>
+                                <td class="text-left">{{ rs.status}} </td>
+                                <td class="text-left">{{ rs.create_at}} </td>
+                                <td class="text-left">
+                                    <a class="primary-btn" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete ! Are you sure?')"> Delete </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+{% endblock %}

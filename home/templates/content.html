@@ -1,0 +1,146 @@
+
+{% load static %}
+<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- banner -->
+                <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
+					<a class="banner banner-1" href="/category/9/ao-khoac">
+						<img src="{% static 'img/h2012.jpg' %}" alt="" style="height:260px">
+						
+					</a>
+				</div>
+
+				<div class="col-md-4 col-sm-6">
+					<a class="banner banner-1" href="category/12/ba-lo-tui-xach">
+						<img src="{% static 'img/h2014.jpg' %}" alt="" style="height:260px">
+						
+					</a>
+				</div>
+				<!-- /banner -->
+
+				<!-- banner -->
+				<div class="col-md-4 col-sm-6">
+					<a class="banner banner-1" href="/category/5/qun-jean">
+						<img src="{% static 'img/h2014-1.jpg' %}" alt="" style="height:260px">
+						
+					</a>
+				</div>
+				<!-- /banner -->
+
+				<!-- banner -->
+
+				<!-- /banner -->
+
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Sản Phẩm Mới Nhất</h2>
+                </div>
+            </div>
+            <!-- section title -->
+            {% for rs in products_latest %}
+                <!-- Product Single -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <a href="/product/{{ rs.id }}/{{rs.slug}}" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Xem ngay</a>
+                            <img src="{{ rs.image.url }}" alt="" style="height: 260px " >
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-price">{{ rs.price}} VND </h3>
+                            <div class="product-rating">
+                                <i class="fa fa-star{% if rs.avaregereview < 1%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 2%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 3%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 4%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 5%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                {{ rs.avaregereview}}/{{ rs.countreview}}
+
+                            </div>
+                            <h2 class="product-name"><a href="#">{{ rs.title }}</a></h2>
+                            <div class="product-btns">
+                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+
+                                    {% if rs.variant == 'None'%}
+                                    <a href="/order/addtoshopcart/{{rs.id}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ</a>
+                                    {% else %}
+                                    <a href="/product/{{rs.id}}/{{rs.slug}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Chi tiết</a>
+                                    {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Single -->
+            {% endfor %}
+
+        </div>
+        <!-- /row -->
+
+
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">Sản Phẩm Hot</h2>
+                </div>
+            </div>
+            <!-- section title -->
+
+            <!-- section title -->
+            {% for rs in products_picked %}
+                <!-- Product Single -->
+                <div class="col-md-3  col-sm-6 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <a href="/product/{{ rs.id }}/{{rs.slug}}" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Xem ngay</a>
+                            <img src="{{ rs.image.url }}" alt="" style="height: 260px">
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-price">{{ rs.price }} VND </h3>
+                            <div class="product-rating">
+                                <i class="fa fa-star{% if rs.avaregereview < 1%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 2%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 3%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 4%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                <i class="fa fa-star{% if rs.avaregereview < 5%}-o empty{% endif%}" style="color:#FF34B3"></i>
+                                {{ rs.avaregereview}}/{{ rs.countreview}}
+                            </div>
+                            <h2 class="product-name"><a href="#">{{ rs.title }}</a></h2>
+                            <div class="product-btns">
+                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                {% if rs.variant == 'None'%}
+                                    <a href="/order/addtoshopcart/{{rs.id}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> THÊM VÀO GIỎ</a>
+                                {% else %}
+                                    <a href="/product/{{rs.id}}/{{rs.slug}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Chi tiết</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Single -->
+            {% endfor %}
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

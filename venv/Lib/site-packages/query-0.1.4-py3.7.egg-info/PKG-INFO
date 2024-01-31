@@ -1,0 +1,67 @@
+Metadata-Version: 1.1
+Name: query
+Version: 0.1.4
+Summary: Quick interactive exploration of SQL databases.
+Home-page: http://github.com/boydgreenfield/query/
+Author: Nick Boyd Greenfield
+Author-email: boyd.greenfield@gmail.com
+License: MIT
+Description: 
+        ``query``
+        ---------
+        
+        ``query`` is a simple module for quickly, interactively exploring a SQL
+        database. Together with IPython, it supports quick tab-completion of table
+        and column names, convenience methods for quickly looking at data (e.g.,
+        ``.head()``, ``.tail()``), and the ability to get a rich interactive database
+        connection up in only 2 lines by setting a few required environmental
+        variables.
+        
+        .. image:: https://travis-ci.org/boydgreenfield/query.svg?branch=v0.1.4
+        
+        
+        Demo in 2 lines
+        ```````````````
+        
+        Explore the included demo database:
+        
+        .. code:: python
+        
+            from query import QueryDb
+            db = QueryDb(demo=True)
+        
+        
+        Real-world use case in 2 lines
+        ``````````````````````````````
+        
+        Or set a few environmental variables (``QUERY_DB_DRIVER``,
+        ``QUERY_DB_HOST``, ``QUERY_DB_PORT``, ``QUERY_DB_NAME``, and
+        ``QUERY_DB_PASS``) and get started just as quickly:
+        
+        .. code:: python
+        
+            from query import QueryDB  # capital 'B' is OK too :)
+            db = QueryDB()
+        
+        
+        Interactive example
+        ```````````````````
+        .. image:: https://github.com/boydgreenfield/query/raw/v0.1.2/docs/images/interactive_demo.gif?raw=True
+        
+        
+        
+        Links
+        `````
+        * `Code and additional details on Github: <http://github.com/boydgreenfield/query/>`_
+        
+        
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: IPython
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Database
+Classifier: Topic :: Database :: Front-Ends

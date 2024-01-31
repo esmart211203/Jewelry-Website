@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block page-title %}Manage Category{% endblock page-title %}
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">TITLE</th>
+        <th scope="col">SLUG</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">IMAGE</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in categories %}
+            <tr>
+                <td>{{data.id}}</td>
+                <td>{{data.title}}</td>
+                <td>{{data.slug}}</td>
+                <td>{{data.status}}</td>
+                {% if data.image %}
+                <td><img src="{{ data.image.url }}" class="img-thumbnail" width="50" alt="Image"></td>
+                {% endif %}
+                <td>
+                    <form method="POST" action="{% url "delete_category" id=data.id %}">
+                      {% csrf_token %}
+                        <a class="btn btn-info" href="{% url "edit_category" id=data.id %}">EDIT</a>
+                        <button type="submit" class="btn btn-danger">DELETE</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-primary mb-5" href="{% url "create_category" %}">New Category</a>
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends 'homebase.html' %}
+
+{% block title %} Đặt hàng {{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% load humanize %}
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+{% block body %}
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+                <li><a href="/home/">Trang chủ</a></li>
+                <li class="active">Đặt hàng</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+            <Form action="" method="post">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <div class="billing-details">
+
+                            <div class="section-title">
+                                <h4 class="title">Thông tin khách hàng</h4>
+                            </div>
+                            <p><label for="id_first_name">Họ:</label>
+                                <input type="text" name="first_name"  value="{{ user.first_name }}" class="input" maxlength="10" required id="id_first_name"></p>
+                            <p><label for="id_last_name">Tên:</label>
+                                <input type="text" name="last_name"  value="{{ user.last_name }}" class="input" maxlength="10" required id="id_last_name"></p>
+                            <p><label for="id_address">Địa chỉ:</label>
+                                <input type="text" name="address" value="{{ profile.address }}" class="input" maxlength="150" id="id_address"></p>
+                            <p><label for="id_phone">Số điện thoại:</label>
+                                <input type="text" name="phone"  value="{{ profile.phone }}"  class="input" maxlength="20" id="id_phone"></p>
+                            <p><label for="id_city">Thành Phố:</label>
+                                <select name="city" class="input" id="id_city">
+                                    <option value="{{ profile.city }}" selected>{{ profile.city }}</option>
+                                    <option value="HCM">Hà Nội</option>
+                                    <option value="HCM">HCM</option>
+                                    <option value="Hải Phòng">Hải Phòng</option>
+                                    <option value="Hải Phòng">Việt Trì</option>
+                                    <option value="Đà Nẵng">Đà Nẵng</option>
+
+                                </select></p>
+                            <p><label for="id_first_name">Quốc Gia :</label>
+                                <input type="text" name="country" class="input" id="id_country" value="{{ profile.country }}"></p>
+                            <div class="pull-right">
+                                <button  type="submit" class="primary-btn">Xác nhận thanh toán</button>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                            <div class="section-title">
+                                <h4 class="title">Thông tin thanh toán</h4>
+                            </div>
+                            <p><label for="id_first_name">Tổng:  VND </label>
+                                <input type="text" name="total" class="input" readonly value="{{ total }} VND"></p>
+                            <p><label for="id_first_name">Credit Card </label>
+                                <input type="text" name="holder" class="input"  value=""></p>
+                            <p><label for="id_first_name">Credit Card Number</label>
+                                <input type="text" name="number" class="input"  value=""></p>
+                            <p><label for="id_first_name">Credit  Date/Year</label>
+                                <input type="text" name="ecpdate" class="input"  placeholder="mm/yy"></p>
+                            <p><label for="id_first_name">Mã BH</label>
+                                <input type="text" name="secnumber" class="input"  value=""></p>
+                        </div>
+                </div>
+            </Form>
+				<div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Danh sách giỏ hàng</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sản Phẩm</th>
+                                <th class="text-center">Giá</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-center">Tổng</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for rs in shopcart %}
+                                <tr>
+                                    <td class="thumb">
+
+                                            {% if rs.variant.image_id  > 0 %}
+                                                <img src="{{rs.variant.image }}" alt="">
+                                            {% else %}
+                                                <img src="{{rs.product.image.url}}" alt="">
+                                            {% endif %}
+
+
+                                    </td>
+                                    <td class="details">
+                                        <a href="/product/{{ rs.product.id }}/{{ rs.product.slug }}">{{rs.product}} {{ rs.variant.size }} {{ rs.variant.color }}</a>  </td>
+                                    <td class="price text-center"><strong>
+                                        {% if rs.product.variant == 'None' %}
+                                            {{ rs.product.price|floatformat:3|intcomma }}
+                                        {% else %}
+                                            {{ rs.variant.price|floatformat:3|intcomma}}
+                                        {% endif %}
+                                    </strong></td>
+                                    <td class="qty text-center"><strong>{{rs.quantity}}</strong></td>
+                                    <td class="total text-center"><strong class="primary-color">
+                                        {% if rs.product.variant == 'None' %}
+                                            {{ rs.amount|floatformat:3|intcomma}}
+                                        {% else %}
+                                            {{ rs.varamount|floatformat:3|intcomma}}
+                                        {% endif %}
+                                    </strong></td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>TỔNG TIỀN</th>
+                                <th colspan="2" class="sub-total">{{ total|floatformat:3|intcomma }} VND</th>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>PHÍ SHIP</th>
+                                <td colspan="2">Free Ship</td>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>ĐƠN GIÁ</th>
+                                <th colspan="2" class="total">{{ total|floatformat:3|intcomma }} VND</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+{% endblock %}

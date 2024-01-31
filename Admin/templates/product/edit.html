@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block page-title %}Update Product{% endblock page-title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{product.title}}" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select class="form-control" id="category" name="category" required>
+        {% for data in categories %}
+          <option value="{{ data.id }}" {% if product.category.id == data.id %}selected="selected"{% endif %}>{{ data.title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="keywords">Keywords:</label>
+      <input type="text" class="form-control" id="keywords" name="keywords" value="{{product.keywords}}" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" required>{{product.description}}</textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="image">Image: <small>current: {{product.image}}</small></label>
+      <input type="file" class="form-control" id="image" name="image">
+    </div>
+  
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" class="form-control" id="price" name="price" value="{{product.price}}" step="0.01" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="number" class="form-control" id="amount" value="{{product.amount}}" name="amount" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="minamount">Minimum Amount:</label>
+      <input type="number" class="form-control" id="minamount" value="{{product.minamount}}" name="minamount" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="variant">Variant:</label>
+        <select class="form-control" id="variant" name="variant" required>
+            <option value="None">None variant</option>
+            {% for variant in variant_list %}
+                <option value="{{ variant }}" {% if product.variant == variant %}selected="selected"{% endif %}>{{ variant }} variant</option>
+            {% endfor %}
+        </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="detail">Detail:</label>
+      <textarea class="form-control" id="detail" name="detail" required>{{product.detail}}</textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="slug">Slug:</label>
+      <input type="text" class="form-control" id="slug" name="slug" value="{{product.slug}}" placeholder="Enter Slug" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" required>
+            <option value="True" {% if product.status == "True" %}selected="selected"{% endif %}>True</option>
+            <option value="False" {% if product.status == "False" %}selected="selected"{% endif %}>False</option>
+        </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

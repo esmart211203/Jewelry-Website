@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block page-title %}Update Category{% endblock page-title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="exampleInputEmail1">Title</label>
+      <input type="text" class="form-control" name="title" placeholder="Enter title">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Keywords</label>
+        <input type="text" class="form-control" name="keywords" placeholder="Enter Keywords">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Slug</label>
+        <input type="text" class="form-control" name="slug" placeholder="Enter Slug">
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Enter Description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="image">Image:</label>
+        <input type="file" class="form-control" id="image" name="image" required>
+    </div>
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" required>
+          <option value="True">True</option>
+          <option value="False">False</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-5">Submit</button>
+</form>
+{% endblock %}

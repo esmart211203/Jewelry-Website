@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block page-title %}Create FAQ{% endblock page-title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">Question:</label>
+      <input type="text" class="form-control" id="title" name="question" placeholder="Enter Question" required>
+    </div>
+    <div class="form-group">
+        <label for="title">Answer:</label>
+        <input type="text" class="form-control" id="title" name="answer" placeholder="Enter Answer" required>
+    </div>
+    <div class="form-group">
+        <label for="price">Order number:</label>
+        <input type="number" class="form-control" id="ordernumber" name="ordernumber" step="1" value="1" required>
+    </div>
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-control" id="status" name="status" required>
+          <option value="True">True</option>
+          <option value="False">False</option>
+        </select>
+      </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

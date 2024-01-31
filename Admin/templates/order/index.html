@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block page-title %}Manage Orders{% endblock page-title %}
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">USER</th>
+        <th scope="col">CITY</th>
+        <th scope="col">CODE</th>
+        <th scope="col">TOTAL</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in orders %}
+      <tr>
+        <td>{{data.user}}</td>
+        <td>{{data.city}}</td>
+        <td>{{data.code}} 
+          <a href="{% url "order_detail" data.id %}"><i class="fa-solid fa-eye"></i></a>
+        </td>
+        <td>{{data.total}}</td>
+        <td>{{data.status}}</td>
+        <td>
+          <form class="form-inline" method="POST" action="{% url 'update_order' data.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <select class="form-control" id="status" name="status" required>
+                    {% for stt in STATUS %}
+                        <option value="{{stt.0}}" {% if data.status == stt.0 %}selected{% endif %}>{{stt.0}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">UPDATE</button>
+        </form>
+        </td>
+      <tr>
+      {% endfor %}
+    <tbody>
+</table>
+{% endblock %}

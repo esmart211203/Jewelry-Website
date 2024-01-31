@@ -1,0 +1,77 @@
+{% extends 'homebase.html' %}
+{% load i18n %}
+{% block title %} Liên Hệ-{{ setting.title }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+
+{% block body %}
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{% url 'home' %}">Trang chủ</a></li>
+                <li class="active">Liên Hệ</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /BREADCRUMB -->
+
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="billing-details">
+
+                        <div class="section-title">
+                            <h3 class="title">Gửi tin liên hệ</h3>
+
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{message.tags}}" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </div>
+                        <form id="checkout-form" class="clearfix" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="GỬI TIN">
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h3 class="title">Thông tin liên hệ</h3>
+                        </div>
+                        <div >
+                            {{ setting.contact|safe }}
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+
+{% endblock %}

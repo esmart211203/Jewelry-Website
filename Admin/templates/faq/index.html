@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block page-title %}Manage FAQS{% endblock page-title %}
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">QUESTION</th>
+        <th scope="col">ANSWER</th>
+        <th scope="col">STATUS</th>
+        <th scope="col">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for data in faqs %}
+        <tr>
+            <td style="width: 200px;">{{data.question}}</td>
+            <td style="max-width: 650px;">{{data.answer}}</td>
+            <td>{{data.status}}</td>
+            <td>
+                <form method="POST" action="{% url "delete_faq" data.id %}">
+                  {% csrf_token %}
+                    <a class="btn btn-info" href="{% url "edit_faq" data.id %}">EDIT</a>
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a class="btn btn-primary mb-5" href="{% url "create_faq" %}">New FAQ</a>
+{% endblock %}

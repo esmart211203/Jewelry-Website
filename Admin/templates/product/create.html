@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block page-title %}Create Product{% endblock page-title %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <select class="form-control" id="category" name="category" required>
+        {% for data in categories %}
+          <option value="{{data.id}}">{{data.title}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="keywords">Keywords:</label>
+      <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Enter Keywords" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" placeholder="Enter Description" required></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" class="form-control" id="image" name="image" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input type="number" class="form-control" id="amount" name="amount" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="minamount">Minimum Amount:</label>
+      <input type="number" class="form-control" id="minamount" name="minamount" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="variant">Variant:</label>
+      <select class="form-control" id="variant" name="variant" required>
+        <option value="None">None variant</option>
+        <option value="Size">Size variant</option>
+        <option value="Color">Color variant</option>
+        <option value="Size-Color">Size-Color variant</option>
+        <!-- Add options for variants here -->
+      </select>
+    </div>
+  
+    <div class="form-group">
+      <label for="detail">Detail:</label>
+      <textarea class="form-control" id="detail" name="detail" placeholder="Enter Detail" required></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="slug">Slug:</label>
+      <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter Slug" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select class="form-control" id="status" name="status" required>
+        <option value="True">True</option>
+        <option value="False">False</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary mb-5">Submit</button>
+</form>
+{% endblock %}

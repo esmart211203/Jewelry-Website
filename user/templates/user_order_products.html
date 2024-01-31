@@ -1,0 +1,79 @@
+{% extends 'homebase.html' %}
+
+{% block title %} Order Detail {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+{% block sidebar %} {% include 'sidebar.html' %} {% endblock %}
+
+{% block body %}
+
+    <!-- BREADCRUMB -->
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Trang chủ</a></li>
+                <li class="active">Sản Phẩm Đã đặt</li>
+            </ul>
+        </div>
+    </div>
+    <!-- /BREADCRUMB -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-2">
+                    {% include "user_panel.html" %}
+                </div>
+
+                <div class="col-md-10">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Danh sách sản phẩm đặt</h3>
+                        </div>
+
+                        <table class="shopping-cart-table table">
+                            <tr>
+                                <th class="text-left">Id </th>
+                                <th class="text-left">Tên </th>
+                                <th class="text-left">Giá </th>
+                                <th class="text-left">Số lượng </th>
+                                <th class="text-left">Thành tiền </th>
+                                <th class="text-left">Tình trạng </th>
+                                <th class="text-left">Ngày đặt </th>
+                                <th class="text-left">Chi tiết </th>
+                            </tr>
+                            {% for rs in order_product %}
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+
+                                                <img src="{{rs.product.image.url}}" alt="" style="height: 80px">
+
+                                        </a>
+                                    </td>
+                                    <td>{{ rs.product.title}} </td>
+                                    <td class="text-left">{{ rs.price}} </td>
+                                    <td class="text-left"> {{   rs.quantity }}</td>
+                                    <td class="text-left">{{ rs.amount}} </td>
+                                    <td class="text-left">{{ rs.status}} </td>
+                                    <td class="text-left">{{ rs.create_at}} </td>
+                                    <td class="text-left"><a class="primary-btn" href="/user/order_product_detail/{{ rs.id }}/{{ rs.order.id}}"> Chi tiết </a></td>
+
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+{% endblock %}

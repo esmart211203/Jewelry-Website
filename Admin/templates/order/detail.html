@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block page-title %}Manage Orders Detail{% endblock page-title %}
+{% block content %}
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">USER</th>
+        <th scope="col">PRODUCT</th>
+        <th scope="col">QUANTITY</th>
+        <th scope="col">PRICE</th>
+        <th scope="col">AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for data in order_products %}
+      <tr>
+        <td>{{data.user}}</td>
+        <td>{{data.product}}</td>
+        <td>{{data.quantity}}</td>
+        <td>{{data.price}}</td>
+        <td>{{data.amount}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<spam>Total: {{order.total_price_order_product}}</spam>
+{% endblock %}  
